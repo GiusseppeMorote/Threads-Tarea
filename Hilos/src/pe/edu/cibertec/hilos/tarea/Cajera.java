@@ -1,0 +1,40 @@
+
+package pe.edu.cibertec.hilos.tarea;
+
+
+public class Cajera implements Runnable{
+
+    private String nombre;
+
+    public Cajera(String nombre) {
+        this.nombre = nombre;
+    }
+    
+     @Override
+    public void run() {
+        
+    }
+
+    public void procesarCompra(Cliente cliente, long timeStamp) {
+        System.out.println("La " + this.nombre
+                + " COMIENZA A PROCESAR LA COMPRA DEL CLIENTE " + cliente.getNombre()
+                + " EN EL TIEMPO: " + (System.currentTimeMillis() - timeStamp) / 1000 + "seg");
+
+        for (int i = 0; i < cliente.getCarroCompra().length; i++) {
+            this.esperarXsegundos(cliente.getCarroCompra()[i]);
+            System.out.println("Procesado el producto " + (i + 1) + " ->Tiempo: "
+                    + (System.currentTimeMillis() - timeStamp) / 1000 + "seg");
+        }
+    }
+
+    private void esperarXsegundos(int segundos) {
+        try {
+            Thread.sleep(segundos * 1000);
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+   
+
+}
